@@ -1,35 +1,56 @@
 ﻿@model Global.LicenseManager.Models.AppModel
+<table>
+    <tr>
+        <td>
+            <input type="text" value="Key" readonly="readonly" style="background: none; border: none; font-weight: bold;" />
+        </td>
+        <td>
+            <input type="text" value="Last Modification Date" readonly="readonly" style="background: none; border: none; font-weight: bold;" />
+        </td>
+        <td>
+            <input type="text" value="Creation Date" readonly="readonly" style="background: none; border: none; font-weight: bold;" />
+        </td>
+    </tr>
+</table>
 @foreach (var customer in Model.Customers)
 { 
     <table>
         <tr>
+            <input id="CustomerId-@customer.Id" type="hidden" name="CustomerId" value="@customer.Id"></input>
             <td>
-                <input id="CustomerId-@customer.Id" type="hidden" name="CustomerId" value="@customer.Id"></input>
+                <input id="CustomerFirstName-@customer.Id" type="text" readonly="readonly" name="CustomerId" value="@customer.FirstName" style="background: none; border: none;"></input>
             </td>
             <td>
-                <input id="CustomerFirstName-@customer.Id" type="text" readonly="readonly" name="CustomerId" value="@customer.FirstName"></input>
-            </td>
-            <td>
-                <input id="CustomerLastName-@customer.Id" type="text" readonly="readonly" name="CustomerId" value="@customer.LastName"></input></td>
+                <input id="CustomerLastName-@customer.Id" type="text" readonly="readonly" name="CustomerId" value="@customer.LastName" style="background: none; border: none;"></input></td>
         </tr>
-    </table>
-    <table>
         @foreach (var license in Model.Licenses.Where(a => a.CustomerId == @customer.Id))
         {     
             <tr>
-                <td>
-                    <input id="License-@license.Id" type="hidden" name="LicenseId" value="@license.Id"></input>
-                </td>
+                <input id="License-@license.Id" type="hidden" name="LicenseId" value="@license.Id"></input>
                 <td>
                     <input id="LicenseKey-@license.Id" type="text" name="LicenseKey" value="@license.Key"></input>
+                </td>
+                <td>
+                    <input id="LicenseModification-@license.Id" type="text" readonly="readonly" name="LicenseModification" value="@license.ModificationDate"></input>
                 </td>
                 <td>
                     <input id="LicenseCreationDate-@license.Id" type="text" readonly="readonly" name="LicenseCreationDate" value="@license.CreationDate"></input>
                 </td>
                 <td>
-                    <input id="LicenseModification-@license.Id" type="text" readonly="readonly" name="LicenseModification" value="@license.ModificationDate"></input>
+                    <input type="submit" disabled="disabled" value="Save" />
+                </td>
+                <td>
+                    <input type="submit" value="Delete" />
                 </td>
             </tr>
         }
+        <tr>
+            <td>
+                <input id="LicenseKey-new-@customer.Id" type="text" name="NewLicense" value=""></input>
+            </td>
+            <td>
+                <input type="submit" disabled="disabled" value="Add new key" />
+            </td>
+        </tr>
     </table>
 }
