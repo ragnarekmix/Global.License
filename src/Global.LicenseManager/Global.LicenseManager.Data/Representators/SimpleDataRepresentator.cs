@@ -41,7 +41,7 @@ namespace Global.LicenseManager.Data.Representators
                     CustomerId = license.CustomerId,
                     Key = license.Key,
                     CreationDate = license.CreationDate.ToString("dd MMMM yyyy"),
-                    Modification = license.Modification
+                    ModificationDate = license.ModificationDate.ToString("dd MMMM yyyy")
                 });
             }
             return licenseList;

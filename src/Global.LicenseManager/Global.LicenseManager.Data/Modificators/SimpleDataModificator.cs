@@ -10,16 +10,18 @@ namespace Global.LicenseManager.Data.Modificators
 {
     public class SimpleDataModificator: IDataModificator
     {
-        public void AddNewLicense(int customerId, string key, DateTime creationDate, string modification)
+        public void AddNewLicense(int customerId, string key)
         {
             var db = Database.Open();
-            db.Licenses.Insert(CustomerId: customerId, Key: key, CreationDate: creationDate, Modification: modification);
+            var creationDate = DateTime.Now.Date;
+            db.Licenses.Insert(CustomerId: customerId, Key: key, CreationDate: creationDate, ModificationDate: creationDate);
         }
 
-        public void ChangeLicense(int id, string key, string modification)
+        public void ChangeLicense(int id, string key)
         {
             var db = Database.Open();
-            db.Licenses.UpdateByLicenseId(LicenseId: id, Key: key, Modification: modification);
+            var modificationDate = DateTime.Now.Date;
+            db.Licenses.UpdateByLicenseId(LicenseId: id, Key: key, ModificationDate: modificationDate);
         }
 
         public void DeleteLicense(int id)

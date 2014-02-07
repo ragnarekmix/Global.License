@@ -8,8 +8,8 @@ namespace Global.LicenseManager.Data.Interfaces
 {
     public interface IDataModificator
     {
-        void AddNewLicense(int customerId, string key, DateTime creationDate, string modification);
-        void ChangeLicense(int id, string key, string modification);
+        void AddNewLicense(int customerId, string key);
+        void ChangeLicense(int id, string key);
         void DeleteLicense(int id);
     }
 }

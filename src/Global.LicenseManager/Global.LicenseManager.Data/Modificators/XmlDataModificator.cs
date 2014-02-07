@@ -9,12 +9,12 @@ namespace Global.LicenseManager.Data.Modificators
 {
     public class XmlDataModificator : IDataModificator
     {
-        public void AddNewLicense(int customerId, string key, DateTime creationDate, string modification)
+        public void AddNewLicense(int customerId, string key)
         {
             throw new NotImplementedException();
         }
 
-        public void ChangeLicense(int id, string key, string modification)
+        public void ChangeLicense(int id, string key)
         {
             throw new NotImplementedException();
         }

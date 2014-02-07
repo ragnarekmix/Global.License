@@ -58,7 +58,9 @@
     <Compile Include="Representators\SimpleDataRepresentator.cs" />
     <Compile Include="Representators\XmlDataRepresentator.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="DataSource\Source.xml" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
