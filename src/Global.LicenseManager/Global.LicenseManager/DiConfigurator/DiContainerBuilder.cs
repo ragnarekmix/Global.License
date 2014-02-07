@@ -26,7 +26,7 @@ namespace Global.LicenseManager.DiConfigurator
                     builder.Register(item => new SimpleDataRepresentator()).As<IDataRepresentator>();
                     break;
                 case DataSourse.Xml:
-                    throw new NotImplementedException("Xml data representator not implemented yet");
+                    builder.Register(item => new XmlDataRepresentator()).As<IDataRepresentator>();
                     break;
                 default:
                     throw new NotImplementedException();

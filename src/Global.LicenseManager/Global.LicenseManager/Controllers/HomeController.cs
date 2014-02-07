@@ -1,4 +1,5 @@
 ﻿using Global.LicenseManager.Data.Interfaces;
+using Global.LicenseManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,19 +19,21 @@ namespace Global.LicenseManager.Controllers
             var customers = Data.GetAllCustomers();
             var licenses = Data.GetAllLicenses();
 
-            return View();
+            var appModel = new AppModel() { Customers = customers, Licenses = licenses };
+
+            return View(appModel);
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your app description page.";
+            ViewBag.Message = "App description page.";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Contact page.";
 
             return View();
         }

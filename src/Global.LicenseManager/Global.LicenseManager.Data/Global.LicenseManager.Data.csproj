@@ -50,9 +50,13 @@
   <ItemGroup>
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\License.cs" />
+    <Compile Include="Interfaces\IDataModificator.cs" />
     <Compile Include="Interfaces\IDataRepresentator.cs" />
+    <Compile Include="Modificators\SimpleDataModificator.cs" />
+    <Compile Include="Modificators\XmlDataModificator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Representators\SimpleDataRepresentator.cs" />
+    <Compile Include="Representators\XmlDataRepresentator.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

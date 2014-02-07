@@ -1,3 +1,35 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model Global.LicenseManager.Models.AppModel
+@foreach (var customer in Model.Customers)
+{ 
+    <table>
+        <tr>
+            <td>
+                <input id="CustomerId-@customer.Id" type="hidden" name="CustomerId" value="@customer.Id"></input>
+            </td>
+            <td>
+                <input id="CustomerFirstName-@customer.Id" type="text" readonly="readonly" name="CustomerId" value="@customer.FirstName"></input>
+            </td>
+            <td>
+                <input id="CustomerLastName-@customer.Id" type="text" readonly="readonly" name="CustomerId" value="@customer.LastName"></input></td>
+        </tr>
+    </table>
+    <table>
+        @foreach (var license in Model.Licenses.Where(a => a.CustomerId == @customer.Id))
+        {     
+            <tr>
+                <td>
+                    <input id="License-@license.Id" type="hidden" name="LicenseId" value="@license.Id"></input>
+                </td>
+                <td>
+                    <input id="LicenseKey-@license.Id" type="text" name="LicenseKey" value="@license.Key"></input>
+                </td>
+                <td>
+                    <input id="LicenseCreationDate-@license.Id" type="text" readonly="readonly" name="LicenseCreationDate" value="@license.CreationDate"></input>
+                </td>
+                <td>
+                    <input id="LicenseModification-@license.Id" type="text" name="LicenseModification" value="@license.Modification"></input>
+                </td>
+            </tr>
+        }
+    </table>
 }

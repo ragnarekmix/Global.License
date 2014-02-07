@@ -11,24 +11,6 @@ namespace Global.LicenseManager.Data.Representators
 {
     public class SimpleDataRepresentator : IDataRepresentator
     {
-        public void AddNewLicense(int customerId, string key, DateTime creationDate, string modification)
-        {
-            var db = Database.Open();
-            db.Licenses.Insert(CustomerId: customerId, Key: key, CreationDate: creationDate, Modification: modification); 
-        }
-
-        public void ChangeLicense(int id, string key, string modification)
-        {
-            var db = Database.Open();
-            db.Licenses.UpdateByLicenseId(LicenseId: id, Key: key, Modification: modification);
-        }
-
-        public void DeleteLicense(int id)
-        {
-            var db = Database.Open();
-            db.Licenses.DeleteByLicenseId(id);  
-        }
-
         public List<Customer> GetAllCustomers()
         {
             var db = Database.Open();
@@ -58,7 +40,7 @@ namespace Global.LicenseManager.Data.Representators
                     Id = license.LicenseId,
                     CustomerId = license.CustomerId,
                     Key = license.Key,
-                    CreationDate = license.CreationDate,
+                    CreationDate = license.CreationDate.ToString("dd MMMM yyyy"),
                     Modification = license.Modification
                 });
             }
