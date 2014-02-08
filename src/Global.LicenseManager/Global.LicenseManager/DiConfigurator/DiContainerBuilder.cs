@@ -2,6 +2,7 @@
 using Autofac.Integration.Mvc;
 using Global.LicenseManager.Controllers;
 using Global.LicenseManager.Data.Interfaces;
+using Global.LicenseManager.Data.Modificators;
 using Global.LicenseManager.Data.Representators;
 using Global.LicenseManager.Enums;
 using System;
@@ -32,6 +33,10 @@ namespace Global.LicenseManager.DiConfigurator
                     throw new NotImplementedException();
                     break;
             }
+
+            builder.Register(item => new SimpleDataModificator()).As<SimpleDataModificator>();
+            builder.Register(item => new XmlDataModificator()).As<XmlDataModificator>();
+
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }

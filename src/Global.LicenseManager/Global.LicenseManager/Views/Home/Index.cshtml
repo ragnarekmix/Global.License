@@ -37,10 +37,10 @@
                     <input id="LicenseCreationDate-@license.Id" type="text" readonly="readonly" name="LicenseCreationDate" value="@license.CreationDate"></input>
                 </td>
                 <td>
-                    <input type="submit" disabled="disabled" value="Save" />
+                    <input type="submit" value="Save" onclick="UpdateLicense(@license.Id)"/>
                 </td>
                 <td>
-                    <input type="submit" value="Delete" />
+                    <input type="submit" value="Delete" onclick="DeleteLicense(@license.Id)"/>
                 </td>
             </tr>
         }
@@ -49,7 +49,7 @@
                 <input id="LicenseKey-new-@customer.Id" type="text" name="NewLicense" value=""></input>
             </td>
             <td>
-                <input type="submit" disabled="disabled" value="Add new key" />
+                <input type="submit" value="Add new license" onclick="AddNewLicense(@customer.Id)"/>
             </td>
         </tr>
     </table>
