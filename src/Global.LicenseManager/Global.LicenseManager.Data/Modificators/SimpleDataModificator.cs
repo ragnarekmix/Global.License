@@ -1,4 +1,5 @@
 ﻿using Global.LicenseManager.Data.Interfaces;
+using log4net;
 using Simple.Data;
 using System;
 using System.Collections.Generic;
@@ -8,26 +9,54 @@ using System.Threading.Tasks;
 
 namespace Global.LicenseManager.Data.Modificators
 {
-    public class SimpleDataModificator: IDataModificator
+    public class SimpleDataModificator : IDataModificator
     {
+        private readonly ILog _log = LogManager.GetLogger(typeof(SimpleDataModificator));
+
         public void AddNewLicense(int customerId, string key)
         {
-            var db = Database.Open();
             var creationDate = DateTime.Now.Date;
-            db.Licenses.Insert(CustomerId: customerId, Key: key, CreationDate: creationDate, ModificationDate: creationDate);
+
+            try
+            {
+                var db = Database.Open();
+                db.Licenses.Insert(CustomerId: customerId, Key: key, CreationDate: creationDate, ModificationDate: creationDate);
+            }
+            catch (Exception e)
+            {
+                _log.ErrorFormat("ERROR: {0}", e.Message);
+                throw new ApplicationException();
+            }
         }
 
         public void ChangeLicense(int id, string key)
         {
-            var db = Database.Open();
             var modificationDate = DateTime.Now.Date;
-            db.Licenses.UpdateByLicenseId(LicenseId: id, Key: key, ModificationDate: modificationDate);
+
+            try
+            {
+                var db = Database.Open();
+                db.Licenses.UpdateByLicenseId(LicenseId: id, Key: key, ModificationDate: modificationDate);
+            }
+            catch (Exception e)
+            {
+                _log.ErrorFormat("ERROR: {0}", e.Message);
+                throw new ApplicationException();
+            }
         }
 
         public void DeleteLicense(int id)
         {
-            var db = Database.Open();
-            db.Licenses.DeleteByLicenseId(id);
+            try
+            {
+                var db = Database.Open();
+                db.Licenses.DeleteByLicenseId(id);
+            }
+            catch (Exception e)
+            {
+                _log.ErrorFormat("ERROR: {0}", e.Message);
+                throw new ApplicationException();
+            }
         }
     }
 }
