@@ -1,9 +1,7 @@
-﻿using System.Reflection;
-using System.Web.Http;
+﻿using System.Web.Http;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
-using Global.LicenseManager.Controllers;
 using Global.LicenseManager.Data.Interfaces;
 using Global.LicenseManager.Data.Modificators;
 using Global.LicenseManager.Data.Representators;
