@@ -51,8 +51,9 @@ namespace Global.LicenseManager.Controllers
 
             try
             {
-                SimpleDataModificator.AddNewLicense(license.CustomerId, license.Key);
-                //XmlDataModificator.AddNewLicense(license.CustomerId, license.Key);
+                license.Id = GetMaxLicenseId() + 1;
+                //SimpleDataModificator.AddNewLicense(license.Id, license.CustomerId, license.Key);
+                XmlDataModificator.AddNewLicense(license.Id, license.CustomerId, license.Key);
             }
             catch (Exception e)
             {
@@ -110,5 +111,13 @@ namespace Global.LicenseManager.Controllers
 
             return View();
         }
+
+        private int GetMaxLicenseId()
+        {
+            List<License> licenses = DataRepresentator.GetAllLicenses();
+            var lastId = licenses.OrderByDescending(x => x.Id).FirstOrDefault().Id;
+
+            return lastId;
+        }s
     }
 }

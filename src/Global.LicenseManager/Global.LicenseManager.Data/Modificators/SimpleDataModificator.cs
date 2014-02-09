@@ -13,7 +13,7 @@ namespace Global.LicenseManager.Data.Modificators
     {
         private readonly ILog _log = LogManager.GetLogger(typeof(SimpleDataModificator));
 
-        public void AddNewLicense(int customerId, string key)
+        public void AddNewLicense(int licenseId, int customerId, string key)
         {
             var creationDate = DateTime.Now.Date;
 
