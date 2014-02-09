@@ -14,9 +14,14 @@ namespace Global.LicenseManager.Controllers
     public class HomeController : Controller
     {
         public IDataRepresentator DataRepresentator { get; set; }
+        public ILog Log { get; set; }
         public SimpleDataModificator SimpleDataModificator { get; set; }
         public XmlDataModificator XmlDataModificator { get; set; }
-        private readonly ILog _log = LogManager.GetLogger(typeof(HomeController));
+
+        public HomeController()
+        {
+            Log = LogManager.GetLogger(typeof(HomeController));
+        }
 
         public ActionResult Index()
         {
@@ -28,7 +33,7 @@ namespace Global.LicenseManager.Controllers
             }
             catch (Exception e)
             {
-                _log.Error("There was an ERROR during getting all customers from source");
+                Log.Error("There was an ERROR during getting all customers from source");
             }
 
             try
@@ -37,7 +42,7 @@ namespace Global.LicenseManager.Controllers
             }
             catch (Exception e)
             {
-                _log.Error("There was an ERROR during getting all licenses from source");
+                Log.Error("There was an ERROR during getting all licenses from source");
             }
 
             var appModel = new AppModel() { Customers = customers, Licenses = licenses };
@@ -58,7 +63,7 @@ namespace Global.LicenseManager.Controllers
             catch (Exception e)
             {
                 msg = "There was an ERROR during adding new license to source.";
-                _log.Error(msg);
+                Log.Error(msg);
             }
 
             return Json(new { Message = msg });
@@ -75,7 +80,7 @@ namespace Global.LicenseManager.Controllers
             catch (Exception e)
             {
                 msg = "There was an ERROR during change license in source";
-                _log.Error(msg);
+                Log.Error(msg);
             }
 
             return Json(new { Message = msg });
@@ -92,7 +97,7 @@ namespace Global.LicenseManager.Controllers
             catch (Exception e)
             {
                 msg = "There was an ERROR during delete license from source";
-                _log.Error(msg);
+                Log.Error(msg);
             }
 
             return Json(new { Message = msg });

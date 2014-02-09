@@ -11,7 +11,12 @@ namespace Global.LicenseManager.Data.Modificators
 {
     public class SimpleDataModificator : IDataModificator
     {
-        private readonly ILog _log = LogManager.GetLogger(typeof(SimpleDataModificator));
+        public ILog Log { get; set; }
+
+        public SimpleDataModificator()
+        {
+            Log = LogManager.GetLogger(typeof(SimpleDataModificator));
+        }
 
         public void AddNewLicense(int licenseId, int customerId, string key)
         {
@@ -24,7 +29,7 @@ namespace Global.LicenseManager.Data.Modificators
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("ERROR: {0}", e.Message);
+                Log.ErrorFormat("ERROR: {0}", e.Message);
                 throw new ApplicationException("ERROR in SimpleDataModificator while AddNewLicense", e);
             }
         }
@@ -40,7 +45,7 @@ namespace Global.LicenseManager.Data.Modificators
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("ERROR: {0}", e.Message);
+                Log.ErrorFormat("ERROR: {0}", e.Message);
                 throw new ApplicationException("ERROR in SimpleDataModificator while ChangeLicense", e);
             }
         }
@@ -54,7 +59,7 @@ namespace Global.LicenseManager.Data.Modificators
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("ERROR: {0}", e.Message);
+                Log.ErrorFormat("ERROR: {0}", e.Message);
                 throw new ApplicationException("ERROR in SimpleDataModificator while DeleteLicense", e);
             }
         }

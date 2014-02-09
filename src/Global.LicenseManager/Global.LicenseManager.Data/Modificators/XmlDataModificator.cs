@@ -14,8 +14,15 @@ namespace Global.LicenseManager.Data.Modificators
 {
     public class XmlDataModificator : IDataModificator
     {
-        private string source = ConfigurationManager.AppSettings["XmlSourcePath"];
-        private readonly ILog _log = LogManager.GetLogger(typeof(XmlDataModificator));
+        public ILog Log { get; set; }
+        public string Source { get; set; }
+
+        public XmlDataModificator()
+        {
+            Source = ConfigurationManager.AppSettings["XmlSourcePath"];
+            Log = LogManager.GetLogger(typeof(XmlDataModificator));
+        }
+
 
         public void AddNewLicense(int licenseId, int customerId, string key)
         {
@@ -23,7 +30,7 @@ namespace Global.LicenseManager.Data.Modificators
 
             try
             {
-                var doc = XDocument.Load(source);
+                var doc = XDocument.Load(Source);
                 XElement customerById = (from customer in doc.Root.Elements("Customer")
                                          where int.Parse(customer.Element("CustomerId").Value) == customerId
                                          select customer.Element("Licenses")).First();
@@ -34,11 +41,11 @@ namespace Global.LicenseManager.Data.Modificators
                 newLicense.Add(new XElement("ModificationDate", creationDate));
                 customerById.Add(newLicense);
 
-                doc.Save(source);
+                doc.Save(Source);
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("ERROR: {0}", e.Message);
+                Log.ErrorFormat("ERROR: {0}", e.Message);
                 throw new ApplicationException("ERROR in XmlDataModificator while AddNewLicense", e);
             }
         }
@@ -48,7 +55,7 @@ namespace Global.LicenseManager.Data.Modificators
             var modificationDate = DateTime.Now.Date.ToString("dd MMMM yyyy");
             try
             {
-                var doc = XDocument.Load(source);
+                var doc = XDocument.Load(Source);
                 List<XElement> customerList = (from customer in doc.Root.Elements("Customer")
                                                select customer).ToList();
                 foreach (var customer in customerList)
@@ -64,11 +71,11 @@ namespace Global.LicenseManager.Data.Modificators
                         }
                     }
                 }
-                doc.Save(source);
+                doc.Save(Source);
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("ERROR: {0}", e.Message);
+                Log.ErrorFormat("ERROR: {0}", e.Message);
                 throw new ApplicationException("ERROR in XmlDataModificator while ChangeLicense", e);
             }
         }
@@ -77,7 +84,7 @@ namespace Global.LicenseManager.Data.Modificators
         {
             try
             {
-                var doc = XDocument.Load(source);
+                var doc = XDocument.Load(Source);
                 List<XElement> customerList = (from customer in doc.Root.Elements("Customer")
                                                select customer).ToList();
                 foreach (var customer in customerList)
@@ -92,11 +99,11 @@ namespace Global.LicenseManager.Data.Modificators
                         }
                     }
                 }
-                doc.Save(source);
+                doc.Save(Source);
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("ERROR: {0}", e.Message);
+                Log.ErrorFormat("ERROR: {0}", e.Message);
                 throw new ApplicationException("ERROR in XmlDataModificator while DeleteLicense", e);
             }
         }

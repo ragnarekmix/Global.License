@@ -12,7 +12,12 @@ namespace Global.LicenseManager.Data.Representators
 {
     public class SimpleDataRepresentator : IDataRepresentator
     {
-        private readonly ILog _log = LogManager.GetLogger(typeof(SimpleDataRepresentator));
+        public ILog Log { get; set; }
+
+        public SimpleDataRepresentator()
+        {
+            Log = LogManager.GetLogger(typeof(SimpleDataRepresentator));
+        }
 
         public List<Customer> GetAllCustomers()
         {
@@ -35,7 +40,7 @@ namespace Global.LicenseManager.Data.Representators
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("ERROR: {0}", e.Message);
+                Log.ErrorFormat("ERROR: {0}", e.Message);
                 throw new ApplicationException("ERROR in SimpleDataRepresentator while GetAllCustomers", e);
             }
             return customerList;
@@ -63,7 +68,7 @@ namespace Global.LicenseManager.Data.Representators
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("ERROR: {0}", e.Message);
+                Log.ErrorFormat("ERROR: {0}", e.Message);
                 throw new ApplicationException("ERROR in SimpleDataRepresentator while GetAllLicenses", e);
             }
             return licenseList;

@@ -13,15 +13,21 @@ namespace Global.LicenseManager.Data.Representators
 {
     public class XmlDataRepresentator : IDataRepresentator
     {
-        private string source = ConfigurationManager.AppSettings["XmlSourcePath"];
-        private readonly ILog _log = LogManager.GetLogger(typeof(XmlDataRepresentator));
+        public ILog Log { get; set; }
+        public string Source { get; set; }
+
+        public XmlDataRepresentator()
+        {
+            Source = ConfigurationManager.AppSettings["XmlSourcePath"];
+            Log = LogManager.GetLogger(typeof(XmlDataRepresentator));
+        }
 
         public List<Customer> GetAllCustomers()
         {
             var customerList = new List<Customer>();
             try
             {
-                var doc = XDocument.Load(source);
+                var doc = XDocument.Load(Source);
                 customerList = (from customer in doc.Root.Elements("Customer")
                                 select new Customer()
                                 {
@@ -32,7 +38,7 @@ namespace Global.LicenseManager.Data.Representators
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("ERROR: {0}", e.Message);
+                Log.ErrorFormat("ERROR: {0}", e.Message);
                 throw new ApplicationException("ERROR in XmlDataRepresentator while GetAllCustomers", e);
             }
 
@@ -44,7 +50,7 @@ namespace Global.LicenseManager.Data.Representators
             var licenseList = new List<License>();
             try
             {
-                var doc = XDocument.Load(source);
+                var doc = XDocument.Load(Source);
                 List<XElement> customerList = (from customer in doc.Root.Elements("Customer")
                                                select customer).ToList();
                 foreach (var customer in customerList)
@@ -63,7 +69,7 @@ namespace Global.LicenseManager.Data.Representators
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("ERROR: {0}", e.Message);
+                Log.ErrorFormat("ERROR: {0}", e.Message);
                 throw new ApplicationException("ERROR in XmlDataRepresentator while GetAllLicenses", e);
             }
 
