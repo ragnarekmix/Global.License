@@ -63,10 +63,10 @@
     <Compile Include="Representators\XmlDataRepresentator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataSource\Source.xml" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Folder Include="DataSource\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
