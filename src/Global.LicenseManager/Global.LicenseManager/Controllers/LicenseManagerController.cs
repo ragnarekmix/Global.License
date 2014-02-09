@@ -5,7 +5,6 @@ using System.Web.Http;
 using Global.LicenseManager.Data.Entities;
 using Global.LicenseManager.Data.Interfaces;
 using Global.LicenseManager.Data.Modificators;
-using Global.LicenseManager.Data.Representators;
 using log4net;
 
 namespace Global.LicenseManager.Controllers
@@ -20,9 +19,6 @@ namespace Global.LicenseManager.Controllers
         public LicenseManagerController()
         {
             Log = LogManager.GetLogger(typeof(LicenseManagerController));
-            DataRepresentator = new SimpleDataRepresentator();  //This is a spike, beacuse DI don't want to inject properties of this class =\ TO FIX
-            SimpleDataModificator = new SimpleDataModificator();
-            XmlDataModificator = new XmlDataModificator();
         }
 
         public ICollection<License> GetLicenses()
