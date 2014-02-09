@@ -25,7 +25,7 @@ namespace Global.LicenseManager.Controllers
             XmlDataModificator = new XmlDataModificator();
         }
 
-        public ICollection<License> Get()
+        public ICollection<License> GetLicenses()
         {
             var licenses = new List<License>();
             try
@@ -39,15 +39,15 @@ namespace Global.LicenseManager.Controllers
             return licenses;
         }
 
-        public string Post(int customerId, string key)
+        public string PostLicense(int id, string key)
         {
             var msg = "New license has been saved.";
 
             try
             {
-                var id = GetMaxLicenseId() + 1;
-                SimpleDataModificator.AddNewLicense(id, customerId, key);
-                XmlDataModificator.AddNewLicense(id, customerId, key);
+                var licenseId = GetMaxLicenseId() + 1;
+                SimpleDataModificator.AddNewLicense(licenseId, id, key);
+                XmlDataModificator.AddNewLicense(licenseId, id, key);
             }
             catch (Exception e)
             {
@@ -58,13 +58,13 @@ namespace Global.LicenseManager.Controllers
             return msg;
         }
 
-        public string Put(int licenseId, string key)
+        public string PutLicense(int id, string key)
         {
             var msg = "License has been changed.";
             try
             {
-                SimpleDataModificator.ChangeLicense(licenseId, key);
-                XmlDataModificator.ChangeLicense(licenseId, key);
+                SimpleDataModificator.ChangeLicense(id, key);
+                XmlDataModificator.ChangeLicense(id, key);
             }
             catch (Exception e)
             {
@@ -75,13 +75,13 @@ namespace Global.LicenseManager.Controllers
             return msg;
         }
 
-        public string Delete(int licenseId)
+        public string DeleteLicense(int id)
         {
             var msg = "License has been deleted.";
             try
             {
-                SimpleDataModificator.DeleteLicense(licenseId);
-                XmlDataModificator.DeleteLicense(licenseId);
+                SimpleDataModificator.DeleteLicense(id);
+                XmlDataModificator.DeleteLicense(id);
             }
             catch (Exception e)
             {
