@@ -33,7 +33,7 @@ namespace Global.LicenseManager.Data.Representators
             catch (Exception e)
             {
                 _log.ErrorFormat("ERROR: {0}", e.Message);
-                throw new ApplicationException();
+                throw new ApplicationException("ERROR in XmlDataRepresentator while GetAllCustomers", e);
             }
 
             return customerList;
@@ -64,7 +64,7 @@ namespace Global.LicenseManager.Data.Representators
             catch (Exception e)
             {
                 _log.ErrorFormat("ERROR: {0}", e.Message);
-                throw new ApplicationException();
+                throw new ApplicationException("ERROR in XmlDataRepresentator while GetAllLicenses", e);
             }
 
             return licenseList;

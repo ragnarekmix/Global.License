@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Customers>
   <Customer>
     <CustomerId>1</CustomerId>
@@ -8,20 +8,20 @@
       <License>
         <LicenseId>1</LicenseId>
         <Key>lasdjflksdf</Key>
-        <CreationDate>20110202</CreationDate>
-        <ModificationDate>20110202</ModificationDate>
+        <CreationDate>02 February 2011</CreationDate>
+        <ModificationDate>02 February 2011</ModificationDate>
       </License>
       <License>
         <LicenseId>2</LicenseId>
         <Key>asdfsadfads</Key>
-        <CreationDate>20120202</CreationDate>
-        <ModificationDate>20120202</ModificationDate>
+        <CreationDate>02 February 2012</CreationDate>
+        <ModificationDate>02 February 2012</ModificationDate>
       </License>
       <License>
         <LicenseId>3</LicenseId>
         <Key>sdfgsdfgfgd</Key>
-        <CreationDate>20130202</CreationDate>
-        <ModificationDate>20130202</ModificationDate>
+        <CreationDate>02 February 2013</CreationDate>
+        <ModificationDate>02 February 2013</ModificationDate>
       </License>
     </Licenses>
   </Customer>
@@ -33,20 +33,20 @@
       <License>
         <LicenseId>4</LicenseId>
         <Key>ghjfhgkfjhk</Key>
-        <CreationDate>20110202</CreationDate>
-        <ModificationDate>20110202</ModificationDate>
+        <CreationDate>02 February 2011</CreationDate>
+        <ModificationDate>02 February 2011</ModificationDate>
       </License>
       <License>
         <LicenseId>5</LicenseId>
         <Key>grytutyjytj</Key>
-        <CreationDate>20120202</CreationDate>
-        <ModificationDate>20120202</ModificationDate>
+        <CreationDate>02 February 2012</CreationDate>
+        <ModificationDate>02 February 2012</ModificationDate>
       </License>
       <License>
         <LicenseId>6</LicenseId>
         <Key>vmhvmgydyjh</Key>
-        <CreationDate>20130202</CreationDate>
-        <ModificationDate>20130202</ModificationDate>
+        <CreationDate>02 February 2013</CreationDate>
+        <ModificationDate>02 February 2013</ModificationDate>
       </License>
     </Licenses>
   </Customer>

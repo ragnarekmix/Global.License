@@ -20,12 +20,12 @@ namespace Global.LicenseManager.Data.Modificators
             try
             {
                 var db = Database.Open();
-                db.Licenses.Insert(CustomerId: customerId, Key: key, CreationDate: creationDate, ModificationDate: creationDate);
+                db.Licenses.Insert(LicenseId: licenseId, CustomerId: customerId, Key: key, CreationDate: creationDate, ModificationDate: creationDate);
             }
             catch (Exception e)
             {
                 _log.ErrorFormat("ERROR: {0}", e.Message);
-                throw new ApplicationException();
+                throw new ApplicationException("ERROR in SimpleDataModificator while AddNewLicense", e);
             }
         }
 
@@ -41,7 +41,7 @@ namespace Global.LicenseManager.Data.Modificators
             catch (Exception e)
             {
                 _log.ErrorFormat("ERROR: {0}", e.Message);
-                throw new ApplicationException();
+                throw new ApplicationException("ERROR in SimpleDataModificator while ChangeLicense", e);
             }
         }
 
@@ -55,7 +55,7 @@ namespace Global.LicenseManager.Data.Modificators
             catch (Exception e)
             {
                 _log.ErrorFormat("ERROR: {0}", e.Message);
-                throw new ApplicationException();
+                throw new ApplicationException("ERROR in SimpleDataModificator while DeleteLicense", e);
             }
         }
     }

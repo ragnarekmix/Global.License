@@ -19,14 +19,14 @@ namespace Global.LicenseManager.Data.Modificators
 
         public void AddNewLicense(int licenseId, int customerId, string key)
         {
-            var creationDate = DateTime.Now.Date;
+            var creationDate = DateTime.Now.Date.ToString("dd MMMM yyyy");
 
             try
             {
                 var doc = XDocument.Load(source);
                 XElement customerById = (from customer in doc.Root.Elements("Customer")
                                          where int.Parse(customer.Element("CustomerId").Value) == customerId
-                                         select customer).First();
+                                         select customer.Element("Licenses")).First();
                 XElement newLicense = new XElement("License");
                 newLicense.Add(new XElement("LicenseId", licenseId));
                 newLicense.Add(new XElement("Key", key));
@@ -39,12 +39,13 @@ namespace Global.LicenseManager.Data.Modificators
             catch (Exception e)
             {
                 _log.ErrorFormat("ERROR: {0}", e.Message);
-                throw new ApplicationException();
+                throw new ApplicationException("ERROR in XmlDataModificator while AddNewLicense", e);
             }
         }
 
         public void ChangeLicense(int id, string key)
         {
+            var modificationDate = DateTime.Now.Date.ToString("dd MMMM yyyy");
             try
             {
                 var doc = XDocument.Load(source);
@@ -59,6 +60,7 @@ namespace Global.LicenseManager.Data.Modificators
                         if (int.Parse(license.Element("LicenseId").Value) == id)
                         {
                             license.Element("Key").Value = key;
+                            license.Element("ModificationDate").Value = modificationDate;
                         }
                     }
                 }
@@ -67,7 +69,7 @@ namespace Global.LicenseManager.Data.Modificators
             catch (Exception e)
             {
                 _log.ErrorFormat("ERROR: {0}", e.Message);
-                throw new ApplicationException();
+                throw new ApplicationException("ERROR in XmlDataModificator while ChangeLicense", e);
             }
         }
 
@@ -95,7 +97,7 @@ namespace Global.LicenseManager.Data.Modificators
             catch (Exception e)
             {
                 _log.ErrorFormat("ERROR: {0}", e.Message);
-                throw new ApplicationException();
+                throw new ApplicationException("ERROR in XmlDataModificator while DeleteLicense", e);
             }
         }
     }
