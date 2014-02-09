@@ -6,10 +6,7 @@ using Global.LicenseManager.Data.Modificators;
 using Global.LicenseManager.Data.Representators;
 using Global.LicenseManager.Enums;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Global.LicenseManager.DiConfigurator
@@ -31,7 +28,6 @@ namespace Global.LicenseManager.DiConfigurator
                     break;
                 default:
                     throw new NotImplementedException();
-                    break;
             }
 
             builder.Register(item => new SimpleDataModificator()).As<SimpleDataModificator>();

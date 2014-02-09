@@ -1,13 +1,9 @@
-﻿using Global.LicenseManager.Data.Entities;
-using Global.LicenseManager.Data.Interfaces;
-using Global.LicenseManager.Data.Representators;
+﻿using Global.LicenseManager.Data.Interfaces;
 using log4net;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Global.LicenseManager.Data.Modificators

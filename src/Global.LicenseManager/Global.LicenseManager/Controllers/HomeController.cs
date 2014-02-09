@@ -6,7 +6,6 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Global.LicenseManager.Controllers
@@ -25,15 +24,15 @@ namespace Global.LicenseManager.Controllers
 
         public ActionResult Index()
         {
-            List<Customer> customers = new List<Customer>();
-            List<License> licenses = new List<License>();
+            var customers = new List<Customer>();
+            var licenses = new List<License>();
             try
             {
                 customers = DataRepresentator.GetAllCustomers();
             }
             catch (Exception e)
             {
-                Log.Error("There was an ERROR during getting all customers from source");
+                Log.ErrorFormat("There was an ERROR during getting all customers from source: {0}", e);
             }
 
             try
@@ -42,10 +41,10 @@ namespace Global.LicenseManager.Controllers
             }
             catch (Exception e)
             {
-                Log.Error("There was an ERROR during getting all licenses from source");
+                Log.ErrorFormat("There was an ERROR during getting all licenses from source: {0}", e);
             }
 
-            var appModel = new AppModel() { Customers = customers, Licenses = licenses };
+            var appModel = new AppModel { Customers = customers, Licenses = licenses };
 
             return View(appModel);
         }
@@ -62,7 +61,7 @@ namespace Global.LicenseManager.Controllers
             }
             catch (Exception e)
             {
-                msg = "There was an ERROR during adding new license to source.";
+                msg = String.Format("There was an ERROR during adding new license to source: {0}", e);
                 Log.Error(msg);
             }
 
@@ -79,7 +78,7 @@ namespace Global.LicenseManager.Controllers
             }
             catch (Exception e)
             {
-                msg = "There was an ERROR during change license in source";
+                msg = String.Format("There was an ERROR during change license in source: {0}", e);
                 Log.Error(msg);
             }
 
@@ -96,7 +95,7 @@ namespace Global.LicenseManager.Controllers
             }
             catch (Exception e)
             {
-                msg = "There was an ERROR during delete license from source";
+                msg = String.Format("There was an ERROR during delete license from source: {0}", e);
                 Log.Error(msg);
             }
 
@@ -120,9 +119,14 @@ namespace Global.LicenseManager.Controllers
         private int GetMaxLicenseId()
         {
             List<License> licenses = DataRepresentator.GetAllLicenses();
-            var lastId = licenses.OrderByDescending(x => x.Id).FirstOrDefault().Id;
+            var firstOrDefault = licenses.OrderByDescending(x => x.Id).FirstOrDefault();
+            if (firstOrDefault != null)
+            {
+                var lastId = firstOrDefault.Id;
 
-            return lastId;
+                return lastId;
+            }
+            return 1;
         }
     }
 }

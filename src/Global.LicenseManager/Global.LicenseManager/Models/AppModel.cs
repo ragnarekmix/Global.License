@@ -1,8 +1,5 @@
 ﻿using Global.LicenseManager.Data.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Global.LicenseManager.Models
 {

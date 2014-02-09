@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Global.LicenseManager.Data.Representators
@@ -29,7 +27,7 @@ namespace Global.LicenseManager.Data.Representators
             {
                 var doc = XDocument.Load(Source);
                 customerList = (from customer in doc.Root.Elements("Customer")
-                                select new Customer()
+                                select new Customer
                                 {
                                     Id = int.Parse(customer.Element("CustomerId").Value),
                                     FirstName = customer.Element("FirstName").Value,
@@ -56,7 +54,7 @@ namespace Global.LicenseManager.Data.Representators
                 foreach (var customer in customerList)
                 {
                     IEnumerable<License> licenses = from license in customer.Element("Licenses").Elements("License")
-                                                    select new License()
+                                                    select new License
                                                     {
                                                         Id = int.Parse(license.Element("LicenseId").Value),
                                                         CustomerId = int.Parse(customer.Element("CustomerId").Value),

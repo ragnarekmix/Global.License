@@ -4,9 +4,6 @@ using log4net;
 using Simple.Data;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Global.LicenseManager.Data.Representators
 {
@@ -30,7 +27,7 @@ namespace Global.LicenseManager.Data.Representators
 
                 foreach (var customer in customers)
                 {
-                    customerList.Add(new Customer()
+                    customerList.Add(new Customer
                     {
                         Id = customer.CustomerId,
                         FirstName = customer.FirstName,
@@ -56,7 +53,7 @@ namespace Global.LicenseManager.Data.Representators
 
                 foreach (var license in licenses)
                 {
-                    licenseList.Add(new License()
+                    licenseList.Add(new License
                     {
                         Id = license.LicenseId,
                         CustomerId = license.CustomerId,
