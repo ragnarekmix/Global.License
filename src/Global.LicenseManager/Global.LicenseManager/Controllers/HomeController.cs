@@ -1,8 +1,8 @@
-﻿using Global.LicenseManager.Data.Entities;
-using Global.LicenseManager.Data.Interfaces;
+﻿using Global.LicenseManager.Common.Entities;
+using Global.LicenseManager.Common.Interfaces;
+using Global.LicenseManager.Common.Log;
 using Global.LicenseManager.Data.Modificators;
 using Global.LicenseManager.Models;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +12,17 @@ namespace Global.LicenseManager.Controllers
 {
     public class HomeController : Controller
     {
-        public IDataRepresentator DataRepresentator { get; set; }
-        public ILog Log { get; set; }
-        public SimpleDataModificator SimpleDataModificator { get; set; }
-        public XmlDataModificator XmlDataModificator { get; set; }
+        IDataRepresentator dataRepresentator;
+        ILogger log;
+        SimpleDataModificator simpleDataModificator;
+        XmlDataModificator xmlDataModificator;
 
-        public HomeController()
+        public HomeController(IDataRepresentator dataRepresentator, SimpleDataModificator simpleDataModificator, XmlDataModificator xmlDataModificator, ILogger log)
         {
-            Log = LogManager.GetLogger(typeof(HomeController));
+            this.dataRepresentator = dataRepresentator;
+            this.simpleDataModificator = simpleDataModificator;
+            this.xmlDataModificator = xmlDataModificator;
+            this.log = log;
         }
 
         public ActionResult Index()
@@ -28,20 +31,20 @@ namespace Global.LicenseManager.Controllers
             var licenses = new List<License>();
             try
             {
-                customers = DataRepresentator.GetAllCustomers();
+                customers = dataRepresentator.GetAllCustomers();
             }
             catch (Exception e)
             {
-                Log.ErrorFormat("There was an ERROR during getting all customers from source: {0}", e);
+                log.Error("There was an ERROR during getting all customers from source: {0}", e);
             }
 
             try
             {
-                licenses = DataRepresentator.GetAllLicenses();
+                licenses = dataRepresentator.GetAllLicenses();
             }
             catch (Exception e)
             {
-                Log.ErrorFormat("There was an ERROR during getting all licenses from source: {0}", e);
+                log.Error("There was an ERROR during getting all licenses from source: {0}", e);
             }
 
             var appModel = new AppModel { Customers = customers, Licenses = licenses };
@@ -56,13 +59,13 @@ namespace Global.LicenseManager.Controllers
             try
             {
                 license.Id = GetMaxLicenseId() + 1;
-                SimpleDataModificator.AddNewLicense(license.Id, license.CustomerId, license.Key);
-                XmlDataModificator.AddNewLicense(license.Id, license.CustomerId, license.Key);
+                simpleDataModificator.AddNewLicense(license.Id, license.CustomerId, license.Key);
+                xmlDataModificator.AddNewLicense(license.Id, license.CustomerId, license.Key);
             }
             catch (Exception e)
             {
                 msg = String.Format("There was an ERROR during adding new license to source: {0}", e);
-                Log.Error(msg);
+                log.Error(msg);
             }
 
             return Json(new { Message = msg });
@@ -73,13 +76,13 @@ namespace Global.LicenseManager.Controllers
             var msg = "License has been changed.";
             try
             {
-                SimpleDataModificator.ChangeLicense(license.Id, license.Key);
-                XmlDataModificator.ChangeLicense(license.Id, license.Key);
+                simpleDataModificator.ChangeLicense(license.Id, license.Key);
+                xmlDataModificator.ChangeLicense(license.Id, license.Key);
             }
             catch (Exception e)
             {
                 msg = String.Format("There was an ERROR during change license in source: {0}", e);
-                Log.Error(msg);
+                log.Error(msg);
             }
 
             return Json(new { Message = msg });
@@ -90,13 +93,13 @@ namespace Global.LicenseManager.Controllers
             var msg = "License has been deleted.";
             try
             {
-                SimpleDataModificator.DeleteLicense(license.Id);
-                XmlDataModificator.DeleteLicense(license.Id);
+                simpleDataModificator.DeleteLicense(license.Id);
+                xmlDataModificator.DeleteLicense(license.Id);
             }
             catch (Exception e)
             {
                 msg = String.Format("There was an ERROR during delete license from source: {0}", e);
-                Log.Error(msg);
+                log.Error(msg);
             }
 
             return Json(new { Message = msg });
@@ -118,7 +121,7 @@ namespace Global.LicenseManager.Controllers
 
         private int GetMaxLicenseId()
         {
-            List<License> licenses = DataRepresentator.GetAllLicenses();
+            var licenses = dataRepresentator.GetAllLicenses();
             var firstOrDefault = licenses.OrderByDescending(x => x.Id).FirstOrDefault();
             if (firstOrDefault != null)
             {

@@ -1,5 +1,5 @@
-﻿using Global.LicenseManager.Data.Interfaces;
-using log4net;
+﻿using Global.LicenseManager.Common.Interfaces;
+using Global.LicenseManager.Common.Log;
 using Simple.Data;
 using System;
 
@@ -7,11 +7,11 @@ namespace Global.LicenseManager.Data.Modificators
 {
     public class SimpleDataModificator : IDataModificator
     {
-        public ILog Log { get; set; }
+        ILogger log;
 
-        public SimpleDataModificator()
+        public SimpleDataModificator(ILogger log)
         {
-            Log = LogManager.GetLogger(typeof(SimpleDataModificator));
+            this.log = log;
         }
 
         public void AddNewLicense(int licenseId, int customerId, string key)
@@ -25,7 +25,7 @@ namespace Global.LicenseManager.Data.Modificators
             }
             catch (Exception e)
             {
-                Log.ErrorFormat("ERROR: {0}", e.Message);
+                log.Error(String.Format("ERROR: {0}", e.Message));
                 throw new ApplicationException("ERROR in SimpleDataModificator while AddNewLicense", e);
             }
         }
@@ -41,7 +41,7 @@ namespace Global.LicenseManager.Data.Modificators
             }
             catch (Exception e)
             {
-                Log.ErrorFormat("ERROR: {0}", e.Message);
+                log.Error(String.Format("ERROR: {0}", e.Message));
                 throw new ApplicationException("ERROR in SimpleDataModificator while ChangeLicense", e);
             }
         }
@@ -55,7 +55,7 @@ namespace Global.LicenseManager.Data.Modificators
             }
             catch (Exception e)
             {
-                Log.ErrorFormat("ERROR: {0}", e.Message);
+                log.Error(String.Format("ERROR: {0}", e.Message));
                 throw new ApplicationException("ERROR in SimpleDataModificator while DeleteLicense", e);
             }
         }

@@ -1,8 +1,8 @@
-﻿using Global.LicenseManager.Data.Interfaces;
-using log4net;
+﻿using Global.LicenseManager.Common.Configuration;
+using Global.LicenseManager.Common.Interfaces;
+using Global.LicenseManager.Common.Log;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -10,23 +10,23 @@ namespace Global.LicenseManager.Data.Modificators
 {
     public class XmlDataModificator : IDataModificator
     {
-        public ILog Log { get; set; }
-        public string Source { get; set; }
+        ILogger log;
+        Config config;
 
-        public XmlDataModificator()
+        public XmlDataModificator(ILogger log, Config config)
         {
-            Source = ConfigurationManager.AppSettings["XmlSourcePath"];
-            Log = LogManager.GetLogger(typeof(XmlDataModificator));
+            this.log = log;
+            this.config = config;
         }
-
 
         public void AddNewLicense(int licenseId, int customerId, string key)
         {
             var creationDate = DateTime.Now.Date.ToString("dd MMMM yyyy");
+            var source = config.GetXmlSourcePath();
 
             try
             {
-                var doc = XDocument.Load(Source);
+                var doc = XDocument.Load(source);
                 XElement customerById = (from customer in doc.Root.Elements("Customer")
                                          where int.Parse(customer.Element("CustomerId").Value) == customerId
                                          select customer.Element("Licenses")).First();
@@ -37,11 +37,11 @@ namespace Global.LicenseManager.Data.Modificators
                 newLicense.Add(new XElement("ModificationDate", creationDate));
                 customerById.Add(newLicense);
 
-                doc.Save(Source);
+                doc.Save(source);
             }
             catch (Exception e)
             {
-                Log.ErrorFormat("ERROR: {0}", e.Message);
+                log.Error(String.Format("ERROR: {0}", e.Message));
                 throw new ApplicationException("ERROR in XmlDataModificator while AddNewLicense", e);
             }
         }
@@ -49,9 +49,11 @@ namespace Global.LicenseManager.Data.Modificators
         public void ChangeLicense(int id, string key)
         {
             var modificationDate = DateTime.Now.Date.ToString("dd MMMM yyyy");
+            var source = config.GetXmlSourcePath();
+
             try
             {
-                var doc = XDocument.Load(Source);
+                var doc = XDocument.Load(source);
                 List<XElement> customerList = (from customer in doc.Root.Elements("Customer")
                                                select customer).ToList();
                 foreach (var customer in customerList)
@@ -67,20 +69,22 @@ namespace Global.LicenseManager.Data.Modificators
                         }
                     }
                 }
-                doc.Save(Source);
+                doc.Save(source);
             }
             catch (Exception e)
             {
-                Log.ErrorFormat("ERROR: {0}", e.Message);
+                log.Error(String.Format("ERROR: {0}", e.Message));
                 throw new ApplicationException("ERROR in XmlDataModificator while ChangeLicense", e);
             }
         }
 
         public void DeleteLicense(int id)
         {
+            var source = config.GetXmlSourcePath();
+
             try
             {
-                var doc = XDocument.Load(Source);
+                var doc = XDocument.Load(source);
                 List<XElement> customerList = (from customer in doc.Root.Elements("Customer")
                                                select customer).ToList();
                 foreach (var customer in customerList)
@@ -95,11 +99,11 @@ namespace Global.LicenseManager.Data.Modificators
                         }
                     }
                 }
-                doc.Save(Source);
+                doc.Save(source);
             }
             catch (Exception e)
             {
-                Log.ErrorFormat("ERROR: {0}", e.Message);
+                log.Error(String.Format("ERROR: {0}", e.Message));
                 throw new ApplicationException("ERROR in XmlDataModificator while DeleteLicense", e);
             }
         }

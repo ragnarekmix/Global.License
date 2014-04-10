@@ -1,7 +1,7 @@
-﻿using Global.LicenseManager.Data.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Global.LicenseManager.Common.Entities;
 
-namespace Global.LicenseManager.Data.Interfaces
+namespace Global.LicenseManager.Common.Interfaces
 {
     public interface IDataRepresentator
     {

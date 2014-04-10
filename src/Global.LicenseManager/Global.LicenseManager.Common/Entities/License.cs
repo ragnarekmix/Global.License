@@ -1,4 +1,4 @@
-﻿namespace Global.LicenseManager.Data.Entities
+﻿namespace Global.LicenseManager.Common.Entities
 {
     public class License
     {

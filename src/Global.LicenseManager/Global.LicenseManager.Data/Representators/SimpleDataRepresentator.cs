@@ -1,6 +1,6 @@
-﻿using Global.LicenseManager.Data.Entities;
-using Global.LicenseManager.Data.Interfaces;
-using log4net;
+﻿using Global.LicenseManager.Common.Entities;
+using Global.LicenseManager.Common.Interfaces;
+using Global.LicenseManager.Common.Log;
 using Simple.Data;
 using System;
 using System.Collections.Generic;
@@ -9,11 +9,11 @@ namespace Global.LicenseManager.Data.Representators
 {
     public class SimpleDataRepresentator : IDataRepresentator
     {
-        public ILog Log { get; set; }
+        ILogger log;
 
-        public SimpleDataRepresentator()
+        public SimpleDataRepresentator(ILogger log)
         {
-            Log = LogManager.GetLogger(typeof(SimpleDataRepresentator));
+            this.log = log;
         }
 
         public List<Customer> GetAllCustomers()
@@ -23,7 +23,6 @@ namespace Global.LicenseManager.Data.Representators
             {
                 var db = Database.Open();
                 var customers = db.Customers.All().ToList();
-
 
                 foreach (var customer in customers)
                 {
@@ -37,7 +36,7 @@ namespace Global.LicenseManager.Data.Representators
             }
             catch (Exception e)
             {
-                Log.ErrorFormat("ERROR: {0}", e.Message);
+                log.Error(String.Format("ERROR: {0}", e.Message));
                 throw new ApplicationException("ERROR in SimpleDataRepresentator while GetAllCustomers", e);
             }
             return customerList;
@@ -65,7 +64,7 @@ namespace Global.LicenseManager.Data.Representators
             }
             catch (Exception e)
             {
-                Log.ErrorFormat("ERROR: {0}", e.Message);
+                log.Error(String.Format("ERROR: {0}", e.Message));
                 throw new ApplicationException("ERROR in SimpleDataRepresentator while GetAllLicenses", e);
             }
             return licenseList;

@@ -1,9 +1,9 @@
-﻿using Global.LicenseManager.Data.Entities;
-using Global.LicenseManager.Data.Interfaces;
-using log4net;
+﻿using Global.LicenseManager.Common.Configuration;
+using Global.LicenseManager.Common.Entities;
+using Global.LicenseManager.Common.Interfaces;
+using Global.LicenseManager.Common.Log;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -11,21 +11,23 @@ namespace Global.LicenseManager.Data.Representators
 {
     public class XmlDataRepresentator : IDataRepresentator
     {
-        public ILog Log { get; set; }
-        public string Source { get; set; }
+        ILogger log;
+        Config config;
 
-        public XmlDataRepresentator()
+        public XmlDataRepresentator(ILogger log, Config config)
         {
-            Source = ConfigurationManager.AppSettings["XmlSourcePath"];
-            Log = LogManager.GetLogger(typeof(XmlDataRepresentator));
+            this.log = log;
+            this.config = config;
         }
 
         public List<Customer> GetAllCustomers()
         {
             var customerList = new List<Customer>();
+            var source = config.GetXmlSourcePath();
+
             try
             {
-                var doc = XDocument.Load(Source);
+                var doc = XDocument.Load(source);
                 customerList = (from customer in doc.Root.Elements("Customer")
                                 select new Customer
                                 {
@@ -36,7 +38,7 @@ namespace Global.LicenseManager.Data.Representators
             }
             catch (Exception e)
             {
-                Log.ErrorFormat("ERROR: {0}", e.Message);
+                log.Error(String.Format("ERROR: {0}", e.Message));
                 throw new ApplicationException("ERROR in XmlDataRepresentator while GetAllCustomers", e);
             }
 
@@ -46,9 +48,11 @@ namespace Global.LicenseManager.Data.Representators
         public List<License> GetAllLicenses()
         {
             var licenseList = new List<License>();
+            var source = config.GetXmlSourcePath();
+
             try
             {
-                var doc = XDocument.Load(Source);
+                var doc = XDocument.Load(source);
                 List<XElement> customerList = (from customer in doc.Root.Elements("Customer")
                                                select customer).ToList();
                 foreach (var customer in customerList)
@@ -67,7 +71,7 @@ namespace Global.LicenseManager.Data.Representators
             }
             catch (Exception e)
             {
-                Log.ErrorFormat("ERROR: {0}", e.Message);
+                log.Error(String.Format("ERROR: {0}", e.Message));
                 throw new ApplicationException("ERROR in XmlDataRepresentator while GetAllLicenses", e);
             }
 

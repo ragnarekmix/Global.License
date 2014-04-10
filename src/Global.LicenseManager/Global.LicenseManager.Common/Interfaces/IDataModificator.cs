@@ -1,4 +1,4 @@
-﻿namespace Global.LicenseManager.Data.Interfaces
+﻿namespace Global.LicenseManager.Common.Interfaces
 {
     public interface IDataModificator
     {

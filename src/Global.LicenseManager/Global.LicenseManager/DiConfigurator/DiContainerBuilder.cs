@@ -1,13 +1,14 @@
-﻿using System.Web.Http;
-using Autofac;
+﻿using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
-using Global.LicenseManager.Data.Interfaces;
+using Global.LicenseManager.Common.Configuration;
+using Global.LicenseManager.Common.Enums;
+using Global.LicenseManager.Common.Interfaces;
+using Global.LicenseManager.Common.Log;
 using Global.LicenseManager.Data.Modificators;
 using Global.LicenseManager.Data.Representators;
-using Global.LicenseManager.Enums;
 using System;
-using System.Configuration;
+using System.Web.Http;
 using System.Web.Mvc;
 
 namespace Global.LicenseManager.DiConfigurator
@@ -17,25 +18,33 @@ namespace Global.LicenseManager.DiConfigurator
         public static void Configure()
         {
             var builder = new ContainerBuilder();
+
             builder.RegisterApiControllers(typeof(MvcApplication).Assembly).PropertiesAutowired().InstancePerHttpRequest();
             builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired().InstancePerHttpRequest();
-            
-            switch ((DataSourse)Enum.Parse(typeof(DataSourse), ConfigurationManager.AppSettings["DataSource"]))
+
+            builder.RegisterType<Logger>().As<ILogger>();
+            builder.RegisterType<SimpleDataModificator>();
+            builder.RegisterType<XmlDataModificator>();
+            builder.RegisterType<Config>();
+
+            var config = new Config(new Logger());
+
+            switch (config.GetDataSource())
             {
                 case DataSourse.DataBase:
-                    builder.Register(item => new SimpleDataRepresentator()).As<IDataRepresentator>();
+                    builder.RegisterType<SimpleDataRepresentator>().As<IDataRepresentator>();
                     break;
+
                 case DataSourse.Xml:
-                    builder.Register(item => new XmlDataRepresentator()).As<IDataRepresentator>();
+                    builder.RegisterType<XmlDataRepresentator>().As<IDataRepresentator>();
                     break;
+
                 default:
                     throw new NotImplementedException();
             }
 
-            builder.Register(item => new SimpleDataModificator()).As<SimpleDataModificator>();
-            builder.Register(item => new XmlDataModificator()).As<XmlDataModificator>();
-
             var container = builder.Build();
+
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }

@@ -1,4 +1,4 @@
-﻿namespace Global.LicenseManager.Enums
+﻿namespace Global.LicenseManager.Common.Enums
 {
     public enum DataSourse
     {

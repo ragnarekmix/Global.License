@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Global.LicenseManager.Tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Global.LicenseManager.Data", "Global.LicenseManager.Data\Global.LicenseManager.Data.csproj", "{CADFA9C7-B112-42E5-97D6-A7698D7754B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Global.LicenseManager.Common", "Global.LicenseManager.Common\Global.LicenseManager.Common.csproj", "{84FBDB4C-D0FF-4AF6-96C7-323C0369A76C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{CADFA9C7-B112-42E5-97D6-A7698D7754B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CADFA9C7-B112-42E5-97D6-A7698D7754B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CADFA9C7-B112-42E5-97D6-A7698D7754B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84FBDB4C-D0FF-4AF6-96C7-323C0369A76C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84FBDB4C-D0FF-4AF6-96C7-323C0369A76C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84FBDB4C-D0FF-4AF6-96C7-323C0369A76C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84FBDB4C-D0FF-4AF6-96C7-323C0369A76C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

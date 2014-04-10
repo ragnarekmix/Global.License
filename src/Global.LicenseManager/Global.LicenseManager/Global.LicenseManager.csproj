@@ -147,7 +147,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Enums\DataSourse.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DiConfigurator\DiContainerBuilder.cs" />
     <Compile Include="Global.asax.cs">
@@ -266,6 +265,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Global.LicenseManager.Common\Global.LicenseManager.Common.csproj">
+      <Project>{84fbdb4c-d0ff-4af6-96c7-323c0369a76c}</Project>
+      <Name>Global.LicenseManager.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Global.LicenseManager.Data\Global.LicenseManager.Data.csproj">
       <Project>{cadfa9c7-b112-42e5-97d6-a7698d7754b9}</Project>
       <Name>Global.LicenseManager.Data</Name>
