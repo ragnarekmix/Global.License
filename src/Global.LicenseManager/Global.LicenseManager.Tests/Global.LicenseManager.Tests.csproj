@@ -121,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ConfigTests.cs" />
+    <Compile Include="Data\SimpleDataModificatorTests.cs" />
     <Compile Include="Data\SimpleDataRepresentatorTests.cs" />
     <Compile Include="Data\XmlDataModificatorTests.cs" />
     <Compile Include="Data\XmlDataRepresentatorTests.cs" />
