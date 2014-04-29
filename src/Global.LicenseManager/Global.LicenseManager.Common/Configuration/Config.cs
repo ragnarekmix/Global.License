@@ -14,7 +14,7 @@ namespace Global.LicenseManager.Common.Configuration
             this.log = log;
         }
 
-        public DataSourse GetDataSource()
+        public virtual DataSourse GetDataSource()
         {
             var source = ConfigurationManager.AppSettings["DataSource"];
 
@@ -37,7 +37,7 @@ namespace Global.LicenseManager.Common.Configuration
             }
         }
 
-        public string GetXmlSourcePath()
+        public virtual string GetXmlSourcePath()
         {
             var source = ConfigurationManager.AppSettings["XmlSourcePath"];
 

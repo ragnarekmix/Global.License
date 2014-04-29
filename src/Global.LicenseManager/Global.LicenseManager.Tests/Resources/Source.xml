@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Customers>
+  <Customer>
+    <CustomerId>1</CustomerId>
+    <FirstName>Mihail</FirstName>
+    <LastName>Podobivsky</LastName>
+    <Licenses>
+      <License>
+        <LicenseId>1</LicenseId>
+        <Key>lasdjflksdf</Key>
+        <CreationDate>02 February 2011</CreationDate>
+        <ModificationDate>02 February 2011</ModificationDate>
+      </License>
+    </Licenses>
+  </Customer>
+  <Customer>
+    <CustomerId>2</CustomerId>
+    <FirstName>Joe</FirstName>
+    <LastName>Oraely</LastName>
+    <Licenses>
+      <License>
+        <LicenseId>2</LicenseId>
+        <Key>ghjfhgkfjhk</Key>
+        <CreationDate>02 February 2011</CreationDate>
+        <ModificationDate>02 February 2011</ModificationDate>
+      </License>
+    </Licenses>
+  </Customer>
+</Customers>

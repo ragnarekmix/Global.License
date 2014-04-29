@@ -13,11 +13,13 @@ namespace Global.LicenseManager.Data.Representators
     {
         ILogger log;
         Config config;
+        FileSystem fileSystem;
 
-        public XmlDataRepresentator(ILogger log, Config config)
+        public XmlDataRepresentator(ILogger log, Config config, FileSystem fileSystem)
         {
             this.log = log;
             this.config = config;
+            this.fileSystem = fileSystem;
         }
 
         public List<Customer> GetAllCustomers()
@@ -27,7 +29,7 @@ namespace Global.LicenseManager.Data.Representators
 
             try
             {
-                var doc = XDocument.Load(source);
+                var doc = XDocument.Parse(fileSystem.ReadFile(source));
                 customerList = (from customer in doc.Root.Elements("Customer")
                                 select new Customer
                                 {
@@ -52,7 +54,7 @@ namespace Global.LicenseManager.Data.Representators
 
             try
             {
-                var doc = XDocument.Load(source);
+                var doc = XDocument.Parse(fileSystem.ReadFile(source));
                 List<XElement> customerList = (from customer in doc.Root.Elements("Customer")
                                                select customer).ToList();
                 foreach (var customer in customerList)
