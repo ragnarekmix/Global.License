@@ -24,9 +24,9 @@ namespace Global.LicenseManager.Tests.Data
         {
             log = new Mock<ILogger>();
             config = new Mock<Config>(log.Object);
-            fileSystem = new Mock<FileSystem>(log.Object);
-            fileSystem.Setup(x => x.ReadFile(It.IsAny<string>())).Returns(Resources.Source);
-            sut = new XmlDataRepresentator(log.Object, config.Object, fileSystem.Object);
+            fileSystem = new Mock<FileSystem>(log.Object, config.Object);
+            fileSystem.Setup(x => x.ReadXmlFile()).Returns(Resources.Source);
+            sut = new XmlDataRepresentator(fileSystem.Object);
         }
 
         [TestMethod]

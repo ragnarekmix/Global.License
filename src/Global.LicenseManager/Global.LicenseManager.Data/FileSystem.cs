@@ -1,42 +1,48 @@
+using Global.LicenseManager.Common.Configuration;
+using Global.LicenseManager.Common.Log;
 using System;
 using System.IO;
 using System.Xml.Linq;
-using Global.LicenseManager.Common.Log;
 
 namespace Global.LicenseManager.Data
 {
     public class FileSystem
     {
-        private ILogger log;
+        ILogger log;
+        Config config;
 
-        public FileSystem(ILogger log)
+        public FileSystem(ILogger log, Config config)
         {
             this.log = log;
+            this.config = config;
         }
 
-        public virtual string ReadFile(string fileName)
+        public virtual string ReadXmlFile()
         {
+            var source = config.GetXmlSourcePath();
             try
             {
-                return File.ReadAllText(fileName);
+                return File.ReadAllText(source);
             }
             catch (Exception e)
             {
-                var msg = String.Format("ERROR: Cannot read file {0}", fileName);
+                var msg = String.Format("ERROR: Cannot read file {0}", source);
                 log.Error(msg);
                 throw new ApplicationException(msg, e);
             }
         }
 
-        public virtual void SaveFile(XDocument document, string fileName)
+        public virtual void SaveXmlFile(string text)
         {
+            var source = config.GetXmlSourcePath();
             try
             {
-                document.Save(fileName);
+                var document = XDocument.Parse(text);
+                document.Save(source);
             }
             catch (Exception e)
             {
-                var msg = String.Format("ERROR: Cannot save file {0}", fileName);
+                var msg = String.Format("ERROR: Cannot save file {0}", source);
                 log.Error(msg);
                 throw new ApplicationException(msg, e);
             }

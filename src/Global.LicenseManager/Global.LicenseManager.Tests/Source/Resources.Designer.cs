@@ -74,10 +74,35 @@ namespace Global.LicenseManager.Tests.Source {
         ///        &lt;CreationDate&gt;02 February 2011&lt;/CreationDate&gt;
         ///        &lt;ModificationDate&gt;02 February 2011&lt;/ModificationDate&gt;
         ///      &lt;/License&gt;
+        ///    &lt;/Licenses&gt;
+        ///  &lt;/Customer&gt;
+        ///&lt;/Customers&gt;.
+        /// </summary>
+        internal static string SimpleSource {
+            get {
+                return ResourceManager.GetString("SimpleSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;Customers&gt;
+        ///  &lt;Customer&gt;
+        ///    &lt;CustomerId&gt;1&lt;/CustomerId&gt;
+        ///    &lt;FirstName&gt;Mihail&lt;/FirstName&gt;
+        ///    &lt;LastName&gt;Podobivsky&lt;/LastName&gt;
+        ///    &lt;Licenses&gt;
         ///      &lt;License&gt;
-        ///        &lt;LicenseId&gt;2&lt;/LicenseId&gt;
-        ///        &lt;Key&gt;asdfsadfads&lt;/Key&gt;
-        ///        &lt;CreationDate&gt;0 [rest of string was truncated]&quot;;.
+        ///        &lt;LicenseId&gt;1&lt;/LicenseId&gt;
+        ///        &lt;Key&gt;lasdjflksdf&lt;/Key&gt;
+        ///        &lt;CreationDate&gt;02 February 2011&lt;/CreationDate&gt;
+        ///        &lt;ModificationDate&gt;02 February 2011&lt;/ModificationDate&gt;
+        ///      &lt;/License&gt;
+        ///    &lt;/Licenses&gt;
+        ///  &lt;/Customer&gt;
+        ///  &lt;Customer&gt;
+        ///    &lt;CustomerId&gt;2&lt;/CustomerId&gt;
+        ///    &lt;FirstName&gt;Joe&lt;/FirstNam [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Source {
             get {
