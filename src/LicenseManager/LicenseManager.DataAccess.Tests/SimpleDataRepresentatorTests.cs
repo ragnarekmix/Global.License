@@ -1,71 +1,132 @@
-﻿using LicenseManager.Common.Entities;
+﻿using LicenseManager.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSubstitute;
 using Simple.Data;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace LicenseManager.DataAccess.Tests
 {
     [TestClass]
     public class SimpleDataRepresentatorTests
     {
-        private IDataRepresentator sut;
+        private SimpleDataRepresentator sut;
+        private SimpleDataModificator writer;
+        private TimeContext timeContext;
+        private DateTime tesеTime;
 
         [TestInitialize]
         public void SetUp()
         {
             sut = new SimpleDataRepresentator();
+            timeContext = Substitute.For<TimeContext>();
+            tesеTime = new DateTime(2014, 10, 10);
+            timeContext.Now().Returns(tesеTime);
+            writer = new SimpleDataModificator(timeContext);
             var adapter = new InMemoryAdapter();
             Database.UseMockAdapter(adapter);
-            var db = Database.Open();
+        }
 
+        [TestMethod]
+        public void GetAllCustomersShouldReturnAllCustomersEntries()
+        {
+            var db = Database.Open();
             db.Customers.Insert(CustomerId: 1, FirstName: "Mihail", LastName: "Podobivsky");
             db.Customers.Insert(CustomerId: 2, FirstName: "Joe", LastName: "Oraely");
 
-            db.Licenses.Insert(LicenseId: 1, CustomerId: 1, Key: "lasdjflksdf", CreationDate: new DateTime(2011, 02, 02), ModificationDate: new DateTime(2011, 02, 02));
-            db.Licenses.Insert(LicenseId: 2, CustomerId: 2, Key: "ghjfhgkfjhk", CreationDate: new DateTime(2011, 02, 02), ModificationDate: new DateTime(2011, 02, 02));
-        }
-
-        [TestMethod]
-        public void GetAllCustomersTest()
-        {
-            var testCustomers = new List<Customer>
-            {
-                new Customer {Id=1, FirstName = "Mihail", LastName ="Podobivsky"},
-                new Customer {Id=2, FirstName = "Joe", LastName ="Oraely"}
-            };
             var customers = sut.GetAllCustomers();
-
-            Assert.AreEqual(testCustomers.Count, customers.Count);
-
-            for (int i = 0; i < testCustomers.Count; i++)
-            {
-                Assert.AreEqual(testCustomers[i].Id, customers[i].Id);
-                Assert.AreEqual(testCustomers[i].FirstName, customers[i].FirstName);
-                Assert.AreEqual(testCustomers[i].LastName, customers[i].LastName);
-            }
+            Assert.AreEqual(2, customers.Count);
         }
 
         [TestMethod]
-        public void GetAllLicensesTest()
+        public void GetAllCustomersShouldReturnCustomerWithCorrectId()
         {
-            var testLicenses = new List<License>
-            {
-                new License {Id=1, CustomerId = 1, Key = "lasdjflksdf", CreationDate = "02 February 2011", ModificationDate = "02 February 2011"},
-                new License {Id=2, CustomerId = 2, Key = "ghjfhgkfjhk", CreationDate = "02 February 2011", ModificationDate = "02 February 2011"}
-            };
+            var customerId = 10;
+            var db = Database.Open();
+            db.Customers.Insert(CustomerId: customerId, FirstName: "Mihail", LastName: "Podobivsky");
+
+            var customers = sut.GetAllCustomers();
+            Assert.AreEqual(customerId, customers.First().Id);
+        }
+
+        [TestMethod]
+        public void GetAllCustomersShouldReturnCustomerWithCorrectFirstName()
+        {
+            var firstName = "Mihail";
+            var db = Database.Open();
+            db.Customers.Insert(CustomerId: 1, FirstName: firstName, LastName: "Podobivsky");
+
+            var customers = sut.GetAllCustomers();
+            Assert.AreEqual(firstName, customers.First().FirstName);
+        }
+
+        [TestMethod]
+        public void GetAllCustomersShouldReturnCustomerWithCorrectLastName()
+        {
+            var lastName = "Podobivsky";
+            var db = Database.Open();
+            db.Customers.Insert(CustomerId: 1, FirstName: "Mihail", LastName: lastName);
+
+            var customers = sut.GetAllCustomers();
+            Assert.AreEqual(lastName, customers.First().LastName);
+        }
+
+        [TestMethod]
+        public void GetAllLicensesShouldReturnAllEnries()
+        {
+            writer.CreateLicense(1, 1, "SomeKey1");
+            writer.CreateLicense(2, 2, "SomeKey2");
             var licenses = sut.GetAllLicenses();
 
-            Assert.AreEqual(testLicenses.Count, licenses.Count);
+            Assert.AreEqual(2, licenses.Count);
+        }
 
-            for (int i = 0; i < testLicenses.Count; i++)
-            {
-                Assert.AreEqual(testLicenses[i].Id, licenses[i].Id);
-                Assert.AreEqual(testLicenses[i].CustomerId, licenses[i].CustomerId);
-                Assert.AreEqual(testLicenses[i].CreationDate, licenses[i].CreationDate);
-                Assert.AreEqual(testLicenses[i].ModificationDate, licenses[i].ModificationDate);
-                Assert.AreEqual(testLicenses[i].Key, licenses[i].Key);
-            }
+        [TestMethod]
+        public void GetAllLicensesShouldReturnLicenseWithCorrectId()
+        {
+            var licenseId = 10;
+            writer.CreateLicense(licenseId, 1, "SomeKey");
+            var licenses = sut.GetAllLicenses();
+
+            Assert.AreEqual(licenseId, licenses.First().Id);
+        }
+
+        [TestMethod]
+        public void GetAllLicensesShouldReturnLicenseWithCorrectCustomerId()
+        {
+            var customerId = 1;
+            writer.CreateLicense(10, customerId, "SomeKey");
+            var licenses = sut.GetAllLicenses();
+
+            Assert.AreEqual(customerId, licenses.First().CustomerId);
+        }
+
+        [TestMethod]
+        public void GetAllLicensesShouldReturnLicenseWithCorrectKey()
+        {
+            var key = "SomeKey";
+            writer.CreateLicense(10, 1, key);
+            var licenses = sut.GetAllLicenses();
+
+            Assert.AreEqual(key, licenses.First().Key);
+        }
+
+        [TestMethod]
+        public void GetAllLicensesShouldReturnLicenseWithCorrectCreationDate()
+        {
+            writer.CreateLicense(10, 1, "SomeKey");
+            var licenses = sut.GetAllLicenses();
+
+            Assert.AreEqual(tesеTime.ToString("dd MMMM yyyy"), licenses.First().CreationDate);
+        }
+
+        [TestMethod]
+        public void GetAllLicensesShouldReturnLicenseWithCorrectModificationDate()
+        {
+            writer.CreateLicense(10, 1, "SomeKey");
+            var licenses = sut.GetAllLicenses();
+
+            Assert.AreEqual(tesеTime.ToString("dd MMMM yyyy"), licenses.First().ModificationDate);
         }
     }
 }
