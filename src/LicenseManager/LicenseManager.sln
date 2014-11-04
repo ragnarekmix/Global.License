@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicenseManager.DataAccess",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicenseManager.DataAccess.Tests", "LicenseManager.DataAccess.Tests\LicenseManager.DataAccess.Tests.csproj", "{04BDA196-CC7F-40A4-B2D7-03B2AC19EFA7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicenseManager.Tests", "LicenseManager.Tests\LicenseManager.Tests.csproj", "{0E01AC2C-A1D4-4FA2-BB1C-4E7DB0DA806F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{04BDA196-CC7F-40A4-B2D7-03B2AC19EFA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04BDA196-CC7F-40A4-B2D7-03B2AC19EFA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04BDA196-CC7F-40A4-B2D7-03B2AC19EFA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E01AC2C-A1D4-4FA2-BB1C-4E7DB0DA806F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E01AC2C-A1D4-4FA2-BB1C-4E7DB0DA806F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E01AC2C-A1D4-4FA2-BB1C-4E7DB0DA806F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E01AC2C-A1D4-4FA2-BB1C-4E7DB0DA806F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

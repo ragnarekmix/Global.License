@@ -16,7 +16,7 @@ namespace LicenseManager.DataAccess
             this.fileSystem = fileSystem;
         }
 
-        public void CreateLicense(int licenseId, int customerId, string key)
+        public virtual void CreateLicense(int licenseId, int customerId, string key)
         {
             var doc = XDocument.Parse(fileSystem.ReadXmlFile());
 
@@ -27,7 +27,7 @@ namespace LicenseManager.DataAccess
             fileSystem.SaveXmlFile(doc.ToString());
         }
 
-        public void UpdateLicense(int id, string key)
+        public virtual void UpdateLicense(int id, string key)
         {
             var doc = XDocument.Parse(fileSystem.ReadXmlFile());
 
@@ -39,7 +39,7 @@ namespace LicenseManager.DataAccess
             fileSystem.SaveXmlFile(doc.ToString());
         }
 
-        public void DeleteLicense(int id)
+        public virtual void DeleteLicense(int id)
         {
             var doc = XDocument.Parse(fileSystem.ReadXmlFile());
 

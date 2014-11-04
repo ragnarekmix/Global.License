@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>078ae2f3-bf7a-452e-be90-64a69e44ddb7</ProjectGuid>
+    <ProjectGuid>{0E01AC2C-A1D4-4FA2-BB1C-4E7DB0DA806F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LicenseManager.Tests</RootNamespace>
@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NSubstitute">
+      <HintPath>..\packages\NSubstitute.1.7.2.0\lib\NET45\NSubstitute.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -50,8 +53,26 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="LicenseManagerBaundaryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LicenseManager.Common\LicenseManager.Common.csproj">
+      <Project>{E1A052F2-E82D-4BC7-86BD-184888A58A04}</Project>
+      <Name>LicenseManager.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LicenseManager.DataAccess\LicenseManager.DataAccess.csproj">
+      <Project>{FFA98D9F-6B7E-4C06-B92E-EA9EE833BAA3}</Project>
+      <Name>LicenseManager.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LicenseManager\LicenseManager.csproj">
+      <Project>{CC6F4FCE-38D0-40E5-B893-6B3C56EB4093}</Project>
+      <Name>LicenseManager</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

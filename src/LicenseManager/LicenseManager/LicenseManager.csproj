@@ -167,6 +167,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="LicenseManagerBaundary.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -287,6 +288,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LicenseManager.Common\LicenseManager.Common.csproj">
+      <Project>{E1A052F2-E82D-4BC7-86BD-184888A58A04}</Project>
+      <Name>LicenseManager.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LicenseManager.DataAccess\LicenseManager.DataAccess.csproj">
+      <Project>{FFA98D9F-6B7E-4C06-B92E-EA9EE833BAA3}</Project>
+      <Name>LicenseManager.DataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
