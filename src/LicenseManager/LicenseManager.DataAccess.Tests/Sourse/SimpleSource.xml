@@ -9,7 +9,7 @@
         <LicenseId>1</LicenseId>
         <Key>SomeKey1</Key>
         <CreationDate>10 October 2014</CreationDate>
-        <ModificationDate>10 October 2014</ModificationDate>
+        <ModificationDate>11 October 2014</ModificationDate>
       </License>
     </Licenses>
   </Customer>
@@ -21,8 +21,8 @@
       <License>
         <LicenseId>2</LicenseId>
         <Key>SomeKey2</Key>
-        <CreationDate>10 October 2014</CreationDate>
-        <ModificationDate>10 October 2014</ModificationDate>
+        <CreationDate>12 October 2014</CreationDate>
+        <ModificationDate>13 October 2014</ModificationDate>
       </License>
     </Licenses>
   </Customer>

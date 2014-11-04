@@ -134,8 +134,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
-    <None Include="Resources\SimpleSource.xml" />
-    <None Include="Resources\Source.xml" />
+    <None Include="Resources\SimpleSource.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\Source.xml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,5 +1,4 @@
-﻿using LicenseManager.Common;
-using LicenseManager.Common.Configuration;
+﻿using LicenseManager.Common.Configuration;
 using LicenseManager.DataAccess.Tests.Sourse;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
@@ -13,8 +12,6 @@ namespace LicenseManager.DataAccess.Tests
     {
         private XmlDataRepresentator sut;
         private FileSystem fileSystem;
-        private TimeContext timeContext;
-        private DateTime testTime;
 
         [TestInitialize]
         public void SetUp()
@@ -22,9 +19,6 @@ namespace LicenseManager.DataAccess.Tests
             fileSystem = Substitute.For<FileSystem>((Config)null);
             fileSystem.ReadXmlFile().Returns(Resource.SimpleSource);
             sut = new XmlDataRepresentator(fileSystem);
-            timeContext = Substitute.For<TimeContext>();
-            testTime = new DateTime(2014, 10, 10);
-            timeContext.Now().Returns(testTime);
         }
 
         [TestMethod]
@@ -87,14 +81,14 @@ namespace LicenseManager.DataAccess.Tests
         public void GetAllLicensesShouldReturnLicenseWithCorrectCreationDate()
         {
             var licenses = sut.GetAllLicenses();
-            Assert.AreEqual(testTime.ToString("dd MMMM yyyy"), licenses.First().CreationDate);
+            Assert.AreEqual(new DateTime(2014, 10, 10).ToString("dd MMMM yyyy"), licenses.First().CreationDate);
         }
 
         [TestMethod]
         public void GetAllLicensesShouldReturnLicenseWithCorrectModificationDate()
         {
             var licenses = sut.GetAllLicenses();
-            Assert.AreEqual(testTime.ToString("dd MMMM yyyy"), licenses.First().ModificationDate);
+            Assert.AreEqual(new DateTime(2014, 10, 11).ToString("dd MMMM yyyy"), licenses.First().ModificationDate);
         }
     }
 }

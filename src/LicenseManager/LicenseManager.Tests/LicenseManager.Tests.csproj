@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{04BDA196-CC7F-40A4-B2D7-03B2AC19EFA7}</ProjectGuid>
+    <ProjectGuid>078ae2f3-bf7a-452e-be90-64a69e44ddb7</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LicenseManager.DataAccess.Tests</RootNamespace>
-    <AssemblyName>LicenseManager.DataAccess.Tests</AssemblyName>
+    <RootNamespace>LicenseManager.Tests</RootNamespace>
+    <AssemblyName>LicenseManager.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -35,28 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EnergyTrading.Contracts">
-      <HintPath>..\packages\EnergyTrading.Contracts.2.8.1.112\lib\net35\EnergyTrading.Contracts.dll</HintPath>
-    </Reference>
-    <Reference Include="EnergyTrading.Core">
-      <HintPath>..\packages\EnergyTrading.Core.2.8.1.112\lib\net40\EnergyTrading.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="EnergyTrading.SimpleData">
-      <HintPath>..\packages\EnergyTrading.SimpleData.2.8.1.112\lib\net40\EnergyTrading.SimpleData.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="NSubstitute">
-      <HintPath>..\packages\NSubstitute.1.7.2.0\lib\NET45\NSubstitute.dll</HintPath>
-    </Reference>
-    <Reference Include="Simple.Data">
-      <HintPath>..\packages\Simple.Data.Core.0.18.3.1\lib\net40\Simple.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Simple.Data.Ado">
-      <HintPath>..\packages\Simple.Data.Ado.0.18.3.1\lib\net40\Simple.Data.Ado.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -72,38 +50,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="SimpleDataRepresentatorTests.cs" />
+    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SimpleDataModificatorTests.cs" />
-    <Compile Include="Sourse\Resource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="XmlDataModificatorTests.cs" />
-    <Compile Include="XmlDataRepresentatorTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LicenseManager.Common\LicenseManager.Common.csproj">
-      <Project>{e1a052f2-e82d-4bc7-86bd-184888a58a04}</Project>
-      <Name>LicenseManager.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LicenseManager.DataAccess\LicenseManager.DataAccess.csproj">
-      <Project>{ffa98d9f-6b7e-4c06-b92e-ea9ee833baa3}</Project>
-      <Name>LicenseManager.DataAccess</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Sourse\Resource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Sourse\SimpleSource.xml" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
